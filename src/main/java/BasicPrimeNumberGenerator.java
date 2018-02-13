@@ -1,7 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class NaivePrimeNumberGenerator implements PrimeNumberGenerator {
+public class BasicPrimeNumberGenerator implements PrimeNumberGenerator {
+
+    private PrimalityTester primalityTester;
+
+    public BasicPrimeNumberGenerator() {
+        this.primalityTester = new NaivePrimalityTester();
+    }
+
+    public BasicPrimeNumberGenerator(PrimalityTester primalityTester) {
+        this.primalityTester = primalityTester;
+    }
+
     @Override
     public List<Integer> generate(int startingValue, int endingValue) {
         List<Integer> primes = new ArrayList<>();
@@ -29,17 +40,6 @@ public class NaivePrimeNumberGenerator implements PrimeNumberGenerator {
 
     @Override
     public boolean isPrime(int value) {
-        if (value < 2) {
-            return false;
-        }
-
-        for(int i = 2; i < value; i++) {
-            if (value % i == 0) {
-                return false;
-            }
-        }
-
-        return true;
-
+        return this.primalityTester.isPrime(value);
     }
 }

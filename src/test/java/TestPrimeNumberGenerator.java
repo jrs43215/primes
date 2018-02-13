@@ -27,12 +27,12 @@ public class TestPrimeNumberGenerator {
 
     @Before
     public void initialize() throws IllegalAccessException, InstantiationException {
-        generator = (PrimeNumberGenerator) this.implementation.newInstance();
+        generator = new BasicPrimeNumberGenerator((PrimalityTester) implementation.newInstance());
     }
 
     @Parameterized.Parameters
     public static Collection getImplementations() {
-        return Arrays.asList(NaivePrimeNumberGenerator.class, BigIntegerPrimeNumberGenerator.class);
+        return Arrays.asList(NaivePrimalityTester.class, ProbabilisticPrimalityTester.class);
     }
 
     @Test
