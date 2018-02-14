@@ -120,7 +120,7 @@ public class Cli {
      * @return A PrimeNumberGenerator using the given PrimalityTester
      * @throws IllegalArgumentException if the provided class cannot be instantiated
      */
-    protected PrimeNumberGenerator buildGenerator(Class testerClass) {
+    private PrimeNumberGenerator buildGenerator(Class testerClass) {
         PrimalityTester tester = null;
         try {
             tester = (PrimalityTester) testerClass.newInstance();
