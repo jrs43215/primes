@@ -1,15 +1,8 @@
+package com.updox.codetests.primes;
+
 import java.math.BigInteger;
 
 public class ProbabilisticPrimalityTester implements PrimalityTester {
-    private int certainty;
-
-    public ProbabilisticPrimalityTester() {
-        this.certainty = 10;
-    }
-
-    public ProbabilisticPrimalityTester(int certainty) {
-        this.certainty = certainty;
-    }
 
     @Override
     public boolean isPrime(int value) {
@@ -20,6 +13,8 @@ public class ProbabilisticPrimalityTester implements PrimalityTester {
         if (value.compareTo(BigInteger.valueOf(2)) < 0) {
             return false;
         }
-        return value.isProbablePrime(this.certainty);
+        // The option to change this was removed as a certainty of 10 is sufficient for int values
+        return value.isProbablePrime(10);
     }
+
 }

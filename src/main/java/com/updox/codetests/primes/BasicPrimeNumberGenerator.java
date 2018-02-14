@@ -1,13 +1,11 @@
+package com.updox.codetests.primes;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BasicPrimeNumberGenerator implements PrimeNumberGenerator {
 
     private PrimalityTester primalityTester;
-
-    public BasicPrimeNumberGenerator() {
-        this.primalityTester = new NaivePrimalityTester();
-    }
 
     public BasicPrimeNumberGenerator(PrimalityTester primalityTester) {
         this.primalityTester = primalityTester;
@@ -27,7 +25,6 @@ public class BasicPrimeNumberGenerator implements PrimeNumberGenerator {
             start = endingValue;
             end = startingValue;
         }
-
 
         for (int i = start; i <= end; i++) {
             if (this.isPrime(i)) {
