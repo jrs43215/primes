@@ -13,18 +13,18 @@ public class TestCli {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private PrimalityTesterInfo getAlwaysTrueInfo() {
-        PrimalityTesterInfo info = new PrimalityTesterInfo();
-        info.setTesterClass(AlwaysTruePrimalityTester.class);
-        info.setDescription("always true");
-        return info;
+    private PrimalityTesterCliOption getAlwaysTrueOptions() {
+        PrimalityTesterCliOption option = new PrimalityTesterCliOption();
+        option.setTesterClass(AlwaysTruePrimalityTester.class);
+        option.setDescription("always true");
+        return option;
     }
 
-    private PrimalityTesterInfo getAlwaysFalseInfo() {
-        PrimalityTesterInfo info = new PrimalityTesterInfo();
-        info.setTesterClass(AlwaysFalsePrimalityTester.class);
-        info.setDescription("always false");
-        return info;
+    private PrimalityTesterCliOption getAlwaysFalseOptions() {
+        PrimalityTesterCliOption option = new PrimalityTesterCliOption();
+        option.setTesterClass(AlwaysFalsePrimalityTester.class);
+        option.setDescription("always false");
+        return option;
     }
 
     @Test
@@ -37,30 +37,30 @@ public class TestCli {
 
     @Test
     public void testRunIsPrimeAlwaysTrue() {
-        Map<String, PrimalityTesterInfo> testersToInfo = new HashMap<>();
-        testersToInfo.put(AlwaysTruePrimalityTester.class.getSimpleName(), getAlwaysTrueInfo());
+        Map<String, PrimalityTesterCliOption> testersToOptions = new HashMap<>();
+        testersToOptions.put(AlwaysTruePrimalityTester.class.getSimpleName(), getAlwaysTrueOptions());
         String[] args = {"1", AlwaysTruePrimalityTester.class.getSimpleName()};
-        Cli cli = new Cli(testersToInfo, AlwaysFalsePrimalityTester.class);
+        Cli cli = new Cli(testersToOptions, AlwaysFalsePrimalityTester.class);
         List<String> results = cli.run(args);
         assertEquals("1 is prime.", results.get(0));
     }
 
     @Test
     public void testRunIsPrimeAlwaysFalse() {
-        Map<String, PrimalityTesterInfo> testersToInfo = new HashMap<>();
-        testersToInfo.put(AlwaysFalsePrimalityTester.class.getSimpleName(), getAlwaysFalseInfo());
+        Map<String, PrimalityTesterCliOption> testersToOptions = new HashMap<>();
+        testersToOptions.put(AlwaysFalsePrimalityTester.class.getSimpleName(), getAlwaysFalseOptions());
         String[] args = {"1", AlwaysFalsePrimalityTester.class.getSimpleName()};
-        Cli cli = new Cli(testersToInfo, AlwaysTruePrimalityTester.class);
+        Cli cli = new Cli(testersToOptions, AlwaysTruePrimalityTester.class);
         List<String> results = cli.run(args);
         assertEquals("1 is not prime.", results.get(0));
     }
 
     @Test
     public void testRunInvalidClassName() {
-        Map<String, PrimalityTesterInfo> testersToInfo = new HashMap<>();
-        testersToInfo.put(AlwaysFalsePrimalityTester.class.getSimpleName(), getAlwaysFalseInfo());
+        Map<String, PrimalityTesterCliOption> testersToOptions = new HashMap<>();
+        testersToOptions.put(AlwaysFalsePrimalityTester.class.getSimpleName(), getAlwaysFalseOptions());
         String[] args = {"1", AlwaysTruePrimalityTester.class.getSimpleName()};
-        Cli cli = new Cli(testersToInfo, AlwaysFalsePrimalityTester.class);
+        Cli cli = new Cli(testersToOptions, AlwaysFalsePrimalityTester.class);
         List<String> results = cli.run(args);
         assertEquals(1, results.size());
         assertEquals(cli.getHelpMessage(), results.get(0));
@@ -86,9 +86,9 @@ public class TestCli {
 
     @Test
     public void testRunTwoArgsAllTrue() {
-        Map<String, PrimalityTesterInfo> testersToInfo = new HashMap<>();
+        Map<String, PrimalityTesterCliOption> testersToOptions = new HashMap<>();
         String[] args = {"1", "3"};
-        Cli cli = new Cli(testersToInfo, AlwaysTruePrimalityTester.class);
+        Cli cli = new Cli(testersToOptions, AlwaysTruePrimalityTester.class);
         List<String> results = cli.run(args);
         assertEquals(3, results.size());
         assertEquals("1", results.get(0));
@@ -98,9 +98,9 @@ public class TestCli {
 
     @Test
     public void testRunTwoArgsAllFalse() {
-        Map<String, PrimalityTesterInfo> testersToInfo = new HashMap<>();
+        Map<String, PrimalityTesterCliOption> testersToOptions = new HashMap<>();
         String[] args = {"1", "3"};
-        Cli cli = new Cli(testersToInfo, AlwaysFalsePrimalityTester.class);
+        Cli cli = new Cli(testersToOptions, AlwaysFalsePrimalityTester.class);
         List<String> results = cli.run(args);
         assertEquals(1, results.size());
         assertEquals("No primes found in range.", results.get(0));

@@ -5,30 +5,30 @@ import java.util.stream.Collectors;
 
 public class Cli {
 
-    private Map<String, PrimalityTesterInfo> testerNameToInfo;
+    private Map<String, PrimalityTesterCliOption> testerNameToOption;
 
     private Class defaultPrimalityTester;
 
     public Cli() {
-        PrimalityTesterInfo naiveInfo = new PrimalityTesterInfo();
-        naiveInfo.setTesterClass(NaivePrimalityTester.class);
-        naiveInfo.setDescription("(default): a simple trial division implementation");
+        PrimalityTesterCliOption naiveOption = new PrimalityTesterCliOption();
+        naiveOption.setTesterClass(NaivePrimalityTester.class);
+        naiveOption.setDescription("(default): a simple trial division implementation");
 
-        PrimalityTesterInfo probabilisticInfo = new PrimalityTesterInfo();
-        probabilisticInfo.setTesterClass(ProbabilisticPrimalityTester.class);
-        probabilisticInfo.setDescription("uses probablistic test built in to Java's BigInteger");
+        PrimalityTesterCliOption probabilisticOption = new PrimalityTesterCliOption();
+        probabilisticOption.setTesterClass(ProbabilisticPrimalityTester.class);
+        probabilisticOption.setDescription("uses probablistic test built in to Java's BigInteger");
 
-        this.testerNameToInfo = new HashMap<>();
-        this.testerNameToInfo.put(NaivePrimalityTester.class.getSimpleName(),
-                naiveInfo);
-        this.testerNameToInfo.put(ProbabilisticPrimalityTester.class.getSimpleName(),
-                probabilisticInfo);
+        this.testerNameToOption = new HashMap<>();
+        this.testerNameToOption.put(NaivePrimalityTester.class.getSimpleName(),
+                naiveOption);
+        this.testerNameToOption.put(ProbabilisticPrimalityTester.class.getSimpleName(),
+                probabilisticOption);
 
         this.defaultPrimalityTester = NaivePrimalityTester.class;
     }
 
-    public Cli(Map<String, PrimalityTesterInfo> primalityTestersToDescriptions, Class defaultPrimalityTester) {
-        this.testerNameToInfo = primalityTestersToDescriptions;
+    public Cli(Map<String, PrimalityTesterCliOption> primalityTestersToDescriptions, Class defaultPrimalityTester) {
+        this.testerNameToOption = primalityTestersToDescriptions;
         this.defaultPrimalityTester = defaultPrimalityTester;
     }
 
@@ -63,7 +63,7 @@ public class Cli {
             try {
                 Integer intArg = Integer.parseInt(arg);
             } catch (NumberFormatException exc) {
-                if (!testerNameToInfo.containsKey(arg)) {
+                if (!testerNameToOption.containsKey(arg)) {
                     return false;
                 }
             }
@@ -105,8 +105,8 @@ public class Cli {
                 }
             } else {
                 // If validated arg wasn't an int, it's safe to assume it's a valid Class name
-                PrimalityTesterInfo info = testerNameToInfo.get(arg);
-                parsedArgs.setTesterClass(info.getTesterClass());
+                PrimalityTesterCliOption option = testerNameToOption.get(arg);
+                parsedArgs.setTesterClass(option.getTesterClass());
             }
         }
 
@@ -172,7 +172,7 @@ public class Cli {
         // It would be better to pull these in using some reflection & an annotation
         // But that felt like overkill for this project
         String testerList = "";
-        for (Map.Entry<String, PrimalityTesterInfo> entry : testerNameToInfo.entrySet()) {
+        for (Map.Entry<String, PrimalityTesterCliOption> entry : testerNameToOption.entrySet()) {
             testerList = testerList + entry.getKey() + " " + entry.getValue().getDescription() + "\n";
         }
         return testerList;
