@@ -16,12 +16,12 @@ public class Cli {
 
         PrimalityTesterCliOption probabilisticOption = new PrimalityTesterCliOption();
         probabilisticOption.setTesterClass(ProbabilisticPrimalityTester.class);
-        probabilisticOption.setDescription("uses probablistic test built in to Java's BigInteger");
+        probabilisticOption.setDescription("uses probabilistic test built in to Java's BigInteger");
 
         this.testerNameToOption = new HashMap<>();
-        this.testerNameToOption.put(NaivePrimalityTester.class.getSimpleName(),
+        this.testerNameToOption.put("n",
                 naiveOption);
-        this.testerNameToOption.put(ProbabilisticPrimalityTester.class.getSimpleName(),
+        this.testerNameToOption.put("p",
                 probabilisticOption);
 
         this.defaultPrimalityTester = NaivePrimalityTester.class;
